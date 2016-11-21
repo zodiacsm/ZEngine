@@ -17,6 +17,7 @@
 
 #include <vector>
 #include "../shader.h"
+#include "../utils/font.h"
 
 class FontInfo;
 

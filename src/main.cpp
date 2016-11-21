@@ -27,6 +27,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void do_movement();
+void float2str(const float &float_temp, std::string &string_temp);
 
 // Camera
 Camera  camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -79,10 +80,12 @@ int main()
         lastTime = startTime;
         std::cout << "renderTime" << renderTime << std::endl;
         std::cout << "frameTime" << 1.0f / renderTime << std::endl;
-        
+
+        std::string strFrame = "";
+        float2str(1.0f / renderTime, strFrame);
         //Font::getInstance()->init();
         //Font::getInstance()->RenderText(std::string("1234"), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-        Font::getInstance()->RenderText("规格严", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+        Font::getInstance()->RenderText(strFrame, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
         //Font::getInstance()->RenderText(, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
         
         Game::getInstance()->render();
@@ -145,4 +148,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     //camera.ProcessMouseScroll(yoffset);
+}
+
+void float2str(const float &float_temp, std::string &string_temp)
+{
+    std::stringstream stream;
+    stream << float_temp;
+    string_temp = stream.str();   //此处也可以用 stream>>string_temp  
 }

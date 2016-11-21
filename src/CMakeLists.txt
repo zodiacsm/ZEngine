@@ -46,8 +46,8 @@ elseif(APPLE)
 	link_directories(${PROJECT_SOURCE_DIR}/lib/mac)
 endif()
 
-include_directories(include)
-include_directories(include/freetype)
+include_directories(../include)
+include_directories(../include/freetype)
 
 source_group("utils" FILES ${ZENGINE_SRC_UTIL})
 source_group("renderer" FILES ${ZENGINE_SRC_RENDERER})
