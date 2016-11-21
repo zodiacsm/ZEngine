@@ -30,15 +30,12 @@ elseif(APPLE)
 	FIND_LIBRARY(OPENGL_LIB OpenGL)
 
 	set(ZENGINE_LINK_LIBRARIES
-			libfreetype.6.dylib
-			libglfw3.3.1.dylib
-			libGLEW.1.13.0.dylib
-			${OPENGL_LIB}
-		)
+		libfreetype.6.dylib
+		libglfw3.3.1.dylib
+		libGLEW.1.13.0.dylib
+		${OPENGL_LIB}
+	)
 endif()
-
-message(${PROJECT_SOURCE_DIR})
-
 
 if(WIN32)
 	link_directories(${PROJECT_SOURCE_DIR}/lib/windows)

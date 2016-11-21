@@ -96,11 +96,6 @@ void Font::init()
 
 void Font::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 {
-    //Shader shader("text.vs", "text.frag");
-    //shader.Use();
-    // Activate corresponding render state
-    //glUniform3f(glGetUniformLocation(shader.Program, "textColor"), color.x, color.y, color.z);
-
     int len = 0;
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c+=len)
@@ -147,53 +142,13 @@ void Font::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm
                 (float)ch.Size.x / TEXTURE_WIDTH + ch.cellPosition.col * CELL_RADIO, (float)ch.Size.y / TEXTURE_WIDTH + ch.cellPosition.row * CELL_RADIO },
             { xpos + w, ypos + h,
                 (float)ch.Size.x / TEXTURE_WIDTH + ch.cellPosition.col * CELL_RADIO, ch.cellPosition.row * CELL_RADIO }        };
-        
-        float temp = ch.cellPosition.row * CELL_RADIO;
-//        GLfloat vertices[6][4] = {
-//            { xpos,     ypos + h,
-//                ch.cellPosition.col * CELL_RADIO, ch.cellPosition.row * CELL_RADIO },
-//            { xpos,     ypos,
-//                ch.cellPosition.col * CELL_RADIO, (float)ch.Size.x / TEXTURE_WIDTH + (ch.cellPosition.row + 1) * CELL_RADIO },
-//            { xpos + w, ypos,
-//                (float)ch.Size.x / TEXTURE_WIDTH + ch.cellPosition.col * CELL_RADIO, (float)ch.Size.x / TEXTURE_WIDTH + (ch.cellPosition.row + 1) * CELL_RADIO },
-//            
-//            { xpos,     ypos + h,   ch.cellPosition.col * CELL_RADIO, ch.cellPosition.row * CELL_RADIO },
-//            { xpos + w, ypos,
-//                (float)ch.Size.x / TEXTURE_WIDTH + ch.cellPosition.col * CELL_RADIO, (float)ch.Size.x / TEXTURE_WIDTH + (ch.cellPosition.row + 1)* CELL_RADIO },
-//            { xpos + w, ypos + h,
-//                (float)ch.Size.x / TEXTURE_WIDTH + ch.cellPosition.col * CELL_RADIO, ch.cellPosition.row * CELL_RADIO }
-//        };
-        
-//        GLfloat vertices[6][4] = {
-//            { 0,     800,
-//                0, 0},
-//            { 0,     0,
-//                0, 0.1 },
-//            { 600, 0,
-//                0.1, 0.1 },
-//            
-//            { 0,     800,   0,0 },
-//            { 600, 0,
-//                0.1,0.1},
-//            { 600, 800,
-//                0.1,0 }
-//        };
-//        GLfloat vertices[6][4] = {
-//            { xpos, ypos + h, 0.0, 0.0 },
-//            { xpos, ypos, 0.0, 0.1 },
-//            { xpos + w, ypos, 0.1, 0.1 },
-//            
-//            { xpos, ypos + h, 0.0, 0.0 },
-//            { xpos + w, ypos, 0.1, 0.1 },
-//            { xpos + w, ypos + h, 0.1, 0.0 }
-//        };
+
         memcpy(fontInfo.verteies, vertices, sizeof(GLfloat) * 6 * 4);
         fontInfo.textureID = ch.TextureID;
         
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
-        
-        
+
         submit(fontInfo);
     }
 }
