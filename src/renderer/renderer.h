@@ -35,6 +35,11 @@ public:
     void render();
     
     void submit(const FontInfo &fontInfo);
+
+private:
+    void renderText();
+
+    void renderScene();
     
 private:
     GLuint mFontVAO, mFontVBO;
