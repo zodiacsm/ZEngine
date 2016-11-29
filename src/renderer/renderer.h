@@ -49,6 +49,8 @@ private:
     std::vector<FontInfo> mFontInfos;
     
     Shader shader;
+
+    GLuint mCubeVBO, mCubeVAO, mCubeEBO;
 };
 
 
