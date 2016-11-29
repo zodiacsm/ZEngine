@@ -42,7 +42,8 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
 
-// The MAIN function, from here we start the application and run the game loop
+
+//The MAIN function, from here we start the application and run the game loop
 int main()
 {
     GLFWwindow* window = Game::getInstance()->initWindow(800, 600, "Zodiac Engine");
@@ -51,7 +52,6 @@ int main()
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
     
     float lastTime = Time::getCurrentTime();
     

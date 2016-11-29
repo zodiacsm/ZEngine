@@ -23,8 +23,8 @@ GLfloat cubeVertices[] = {
 };
 
 GLuint cubeIndices[] = {
-    0, 1, 3,
-    1, 2, 3
+    0, 3, 1,
+    1, 3, 2
 };
 
 Renderer::Renderer()
@@ -85,7 +85,7 @@ void Renderer::render()
 {
     renderScene();
 
-    //renderText();
+    renderText();
 }
 
 void Renderer::renderText()
