@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "renderer.h"
 #include "../utils/font.h"
+#include "../shadermanager.h"
 
 Renderer* Renderer::mRenderer = nullptr;
 
@@ -90,7 +91,7 @@ void Renderer::render()
 
 void Renderer::renderText()
 {
-    shader = Shader("text.vs", "text.frag");
+    shader = ShaderManager::getInstance()->getShaderProgram("text.vs", "text.frag");
     shader.Use();
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), 0.0f, static_cast<GLfloat>(600));
@@ -122,7 +123,7 @@ void Renderer::renderText()
 
 void Renderer::renderScene()
 {
-    shader = Shader("cube.vs", "cube.frag");
+    shader = ShaderManager::getInstance()->getShaderProgram("cube.vs", "cube.frag");
     shader.Use();
 
     glBindVertexArray(mCubeVAO);

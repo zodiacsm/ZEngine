@@ -57,8 +57,6 @@ int main()
     
     static float frame = 30;
     
-//    GLFWwindow* window = Game::getInstance()->initWindow(800, 600, "Zodiac Engine");
-    
     // Game loop
     while (!glfwWindowShouldClose(window))
     {
