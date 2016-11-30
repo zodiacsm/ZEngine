@@ -16,7 +16,9 @@ set(ZENGINE_SRC_MAIN
 	game.h
 	main.cpp
 	shader.h
-	stb_image.h)
+	stb_image.h
+	shadermanager.h
+	shadermanager.cpp)
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
