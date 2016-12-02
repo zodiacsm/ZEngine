@@ -40,6 +40,8 @@ private:
     void renderText();
 
     void renderScene();
+
+    void renderCubes();
     
 private:
     GLuint mFontVAO, mFontVBO;
@@ -51,6 +53,11 @@ private:
     Shader shader;
 
     GLuint mCubeVBO, mCubeVAO, mCubeEBO;
+
+    GLuint texture1;
+    GLuint texture2;
+
+    GLuint mcubesVBO, mcubesVAO;
 };
 
 

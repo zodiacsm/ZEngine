@@ -59,7 +59,6 @@ public:
 public:
     void init();
     
-//    void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
     void RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
     
     void submit(const FontInfo &fontInfo);

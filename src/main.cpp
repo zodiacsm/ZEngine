@@ -49,7 +49,7 @@ int main()
     GLFWwindow* window = Game::getInstance()->initWindow(800, 600, "Zodiac Engine");
     
     Game::getInstance()->init();
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
@@ -81,10 +81,7 @@ int main()
 
         std::string strFrame = "";
         float2str(1.0f / renderTime, strFrame);
-        //Font::getInstance()->init();
-        //Font::getInstance()->RenderText(std::string("1234"), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
         Font::getInstance()->RenderText(strFrame, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-        //Font::getInstance()->RenderText(, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
         
         Game::getInstance()->render();
 
