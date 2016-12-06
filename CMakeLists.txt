@@ -1,5 +1,7 @@
 project(ZEngine)
 
+set(ZENGINE ZEngine)
+
 set(ZENGINE_SRC_UTIL 
 	src/utils/font.h 
 	src/utils/font.cpp
@@ -53,9 +55,15 @@ include_directories(include/freetype)
 source_group("utils" FILES ${ZENGINE_SRC_UTIL})
 source_group("renderer" FILES ${ZENGINE_SRC_RENDERER})
 
-add_executable(zengine 
+message(${CMAKE_BINARY_DIR})
+message(${PROJECT_SOURCE_DIR})
+
+
+add_executable(${ZENGINE} 
 		${ZENGINE_SRC_UTIL} 
 		${ZENGINE_SRC_RENDERER}
 		${ZENGINE_SRC_MAIN})
 
-target_link_libraries(zengine ${ZENGINE_LINK_LIBRARIES})
+add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
+
+target_link_libraries(${ZENGINE} ${ZENGINE_LINK_LIBRARIES})

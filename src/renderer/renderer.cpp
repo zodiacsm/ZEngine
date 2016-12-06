@@ -169,7 +169,7 @@ void Renderer::init()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // Load, create texture and generate mipmaps
     int width, height;
-    unsigned char* image = SOIL_load_image("container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+    unsigned char* image = SOIL_load_image("resources/container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
     SOIL_free_image_data(image);
@@ -209,7 +209,7 @@ void Renderer::render()
 
 void Renderer::renderText()
 {
-    shader = ShaderManager::getInstance()->getShaderProgram("text.vs", "text.frag");
+    shader = ShaderManager::getInstance()->getShaderProgram("resources/text.vs", "resources/text.frag");
     shader.Use();
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), 0.0f, static_cast<GLfloat>(600));
@@ -241,7 +241,7 @@ void Renderer::renderText()
 
 void Renderer::renderScene()
 {
-    shader = ShaderManager::getInstance()->getShaderProgram("cube.vs", "cube.frag");
+    shader = ShaderManager::getInstance()->getShaderProgram("resources/cube.vs", "resources/cube.frag");
     shader.Use();
 
     glBindVertexArray(mCubeVAO);
@@ -251,7 +251,7 @@ void Renderer::renderScene()
 
 void Renderer::renderCubes()
 {
-    Shader ourShader = ShaderManager::getInstance()->getShaderProgram("shader.vs", "shader.frag");
+    Shader ourShader = ShaderManager::getInstance()->getShaderProgram("resources/shader.vs", "resources/shader.frag");
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture1);
