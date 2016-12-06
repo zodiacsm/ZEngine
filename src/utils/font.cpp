@@ -48,7 +48,7 @@ void Font::init()
     if (FT_Init_FreeType(&ft))
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
     
-    if (FT_New_Face(ft, "hanyi.ttf", 0, &face))
+    if (FT_New_Face(ft, "resources/hanyi.ttf", 0, &face))
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
     
     // Set size to load glyphs as
