@@ -55,7 +55,7 @@ int main()
     
     float lastTime = Time::getCurrentTime();
     
-    static float frame = 30;
+//    static float frame = 30;
     
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -68,7 +68,7 @@ int main()
 //         glClear(GL_COLOR_BUFFER_BIT);
         
         float startTime = Time::getInstance()->getCurrentTime();
-        float deltaTime = startTime - lastTime;
+//        float deltaTime = startTime - lastTime;
         
 //        if (deltaTime < 1.0f / frame) {
 //            continue;

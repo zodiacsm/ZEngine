@@ -19,7 +19,7 @@
 #include "../shader.h"
 #include "../utils/font.h"
 
-class FontInfo;
+struct FontInfo;
 
 class Renderer
 {

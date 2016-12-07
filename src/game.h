@@ -41,10 +41,6 @@ public:
 private:
     static Game *mGame;
     
-    GLuint VBO, containerVAO;
-    
-    GLuint lightVAO;
-    
     Shader lightingShader;
     
     Camera  camera;

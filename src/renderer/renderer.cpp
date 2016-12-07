@@ -209,7 +209,7 @@ void Renderer::render()
 
 void Renderer::renderText()
 {
-    shader = ShaderManager::getInstance()->getShaderProgram("resources/text.vs", "resources/text.frag");
+    shader = ShaderManager::getInstance()->getShaderProgram((GLchar*)"resources/text.vs", (GLchar*)"resources/text.frag");
     shader.Use();
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), 0.0f, static_cast<GLfloat>(600));
@@ -241,7 +241,7 @@ void Renderer::renderText()
 
 void Renderer::renderScene()
 {
-    shader = ShaderManager::getInstance()->getShaderProgram("resources/cube.vs", "resources/cube.frag");
+    shader = ShaderManager::getInstance()->getShaderProgram((GLchar*)"resources/cube.vs", (GLchar*)"resources/cube.frag");
     shader.Use();
 
     glBindVertexArray(mCubeVAO);
@@ -251,14 +251,14 @@ void Renderer::renderScene()
 
 void Renderer::renderCubes()
 {
-    Shader ourShader = ShaderManager::getInstance()->getShaderProgram("resources/shader.vs", "resources/shader.frag");
+    Shader ourShader = ShaderManager::getInstance()->getShaderProgram((GLchar*)"resources/shader.vs", (GLchar*)"resources/shader.frag");
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture1);
-    glUniform1i(glGetUniformLocation(ourShader.Program, "ourTexture1"), 0);
+    glUniform1i(glGetUniformLocation(ourShader.Program, (GLchar*)"ourTexture1"), 0);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture2);
-    glUniform1i(glGetUniformLocation(ourShader.Program, "ourTexture2"), 1);
+    glUniform1i(glGetUniformLocation(ourShader.Program, (GLchar*)"ourTexture2"), 1);
 
     // Activate shader
     ourShader.Use();
