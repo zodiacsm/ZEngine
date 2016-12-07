@@ -39,6 +39,7 @@ elseif(APPLE)
 		libfreetype.6.dylib
 		libglfw3.3.1.dylib
 		libGLEW.1.13.0.dylib
+		libsoillib.dylib
 		${OPENGL_LIB}
 	)
 endif()
@@ -63,7 +64,10 @@ add_executable(${ZENGINE}
 		${ZENGINE_SRC_UTIL} 
 		${ZENGINE_SRC_RENDERER}
 		${ZENGINE_SRC_MAIN})
-
-add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
+if(WIN32)
+	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
+elseif(APPLE)
+	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/Debug/resources)
+endif(WIN32)
 
 target_link_libraries(${ZENGINE} ${ZENGINE_LINK_LIBRARIES})
