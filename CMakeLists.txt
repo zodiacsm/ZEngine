@@ -28,7 +28,7 @@ set(ZENGINE_SRC_MAIN
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
-		glew32s.lib
+		glew32sd.lib
 		glfw3.lib
 		OpenGL32.Lib
 		SOIL.lib
@@ -65,7 +65,7 @@ add_executable(${ZENGINE}
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
 
-	add_definitions("/W3 /D_CRT_SECURE_NO_WARNINGS /wd4098 /wd4099 /wd4819 /nologo")
+	add_definitions("/W3 /D_CRT_SECURE_NO_WARNINGS /wd4819 /nologo")
 elseif(APPLE)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/Debug/resources)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/lib/mac /usr/local/lib)
