@@ -1,6 +1,7 @@
 #ifndef SHADER_MANAGER_H
 #define SHADER_MANAGER_H
 
+#define GLEW_STATIC
 #include <glew/glew.h>
 #include "shader.h"
 #include <vector>

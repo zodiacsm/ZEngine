@@ -27,7 +27,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void do_movement();
-void float2str(const float &float_temp, std::string &string_temp);
+void float2str(const double &float_temp, std::string &string_temp);
 
 // Camera
 Camera  camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -53,7 +53,7 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    float lastTime = Time::getCurrentTime();
+    double lastTime = Time::getCurrentTime();
     
 //    static float frame = 30;
     
@@ -67,14 +67,14 @@ int main()
 //         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 //         glClear(GL_COLOR_BUFFER_BIT);
         
-        float startTime = Time::getInstance()->getCurrentTime();
+        double startTime = Time::getInstance()->getCurrentTime();
 //        float deltaTime = startTime - lastTime;
         
 //        if (deltaTime < 1.0f / frame) {
 //            continue;
 //        }
         
-        float renderTime = startTime - lastTime;
+        double renderTime = startTime - lastTime;
         lastTime = startTime;
         std::cout << "renderTime" << renderTime << std::endl;
         std::cout << "frameTime" << 1.0f / renderTime << std::endl;
@@ -145,7 +145,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     //camera.ProcessMouseScroll(yoffset);
 }
 
-void float2str(const float &float_temp, std::string &string_temp)
+void float2str(const double &float_temp, std::string &string_temp)
 {
     std::stringstream stream;
     stream << float_temp;

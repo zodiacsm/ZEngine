@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+
 project(ZEngine)
 
 set(ZENGINE ZEngine)
@@ -56,16 +58,14 @@ include_directories(include/freetype)
 source_group("utils" FILES ${ZENGINE_SRC_UTIL})
 source_group("renderer" FILES ${ZENGINE_SRC_RENDERER})
 
-message(${CMAKE_BINARY_DIR})
-message(${PROJECT_SOURCE_DIR})
-
-
 add_executable(${ZENGINE} 
 		${ZENGINE_SRC_UTIL} 
 		${ZENGINE_SRC_RENDERER}
 		${ZENGINE_SRC_MAIN})
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
+
+	add_definitions("/W3 /D_CRT_SECURE_NO_WARNINGS /wd4098 /wd4099 /nologo")
 elseif(APPLE)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/Debug/resources)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/lib/mac /usr/local/lib)
