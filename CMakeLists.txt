@@ -1,30 +1,36 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(ZEngine)
+#project(Cubes)
 
 set(ZENGINE ZEngine)
+set(SAMPLE_CUBES Cubes)
+set(SAMPLE_LIGHT Light)
 
 set(ZENGINE_SRC_UTIL 
-	src/utils/font.h 
-	src/utils/font.cpp
-	src/utils/log.h
-	src/utils/log.cpp
-	src/utils/memory.cpp
-	src/utils/time.h
-	src/utils/time.cpp)
+	src/zengine/utils/font.h 
+	src/zengine/utils/font.cpp
+	src/zengine/utils/log.h
+	src/zengine/utils/log.cpp
+	src/zengine/utils/memory.cpp
+	src/zengine/utils/time.h
+	src/zengine/utils/time.cpp)
 
 set(ZENGINE_SRC_RENDERER 
-	src/renderer/renderer.cpp 
-	src/renderer/renderer.h)
+	src/zengine/renderer/renderer.cpp 
+	src/zengine/renderer/renderer.h)
 
 set(ZENGINE_SRC_MAIN 
-	src/game.cpp
-	src/game.h
-	src/main.cpp
-	src/shader.h
-	src/stb_image.h
-	src/shadermanager.h
-	src/shadermanager.cpp)
+	src/zengine/game.cpp
+	src/zengine/game.h
+	src/zengine/main.cpp
+	src/zengine/shader.h
+	src/zengine/stb_image.h
+	src/zengine/shadermanager.h
+	src/zengine/shadermanager.cpp)
+
+set(SAMPLE_CUBES_SRC src/samples/cubes/main.cpp)
+set(SAMPLE_LIGHT_SRC src/samples/light/main.cpp)
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
@@ -54,14 +60,17 @@ endif()
 
 include_directories(include)
 include_directories(include/freetype)
+include_directories(src/zengine)
 
 source_group("utils" FILES ${ZENGINE_SRC_UTIL})
 source_group("renderer" FILES ${ZENGINE_SRC_RENDERER})
 
-add_executable(${ZENGINE} 
-		${ZENGINE_SRC_UTIL} 
-		${ZENGINE_SRC_RENDERER}
-		${ZENGINE_SRC_MAIN})
+#add_executable(${ZENGINE} ${ZENGINE_SRC_UTIL} ${ZENGINE_SRC_RENDERER} ${ZENGINE_SRC_MAIN})
+
+add_library(${ZENGINE} ${ZENGINE_SRC_UTIL} ${ZENGINE_SRC_RENDERER} ${ZENGINE_SRC_MAIN})
+add_executable(${SAMPLE_CUBES} ${SAMPLE_CUBES_SRC})
+add_executable(${SAMPLE_LIGHT} ${SAMPLE_LIGHT_SRC})
+
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
 
@@ -71,4 +80,7 @@ elseif(APPLE)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/lib/mac /usr/local/lib)
 endif(WIN32)
 
-target_link_libraries(${ZENGINE} ${ZENGINE_LINK_LIBRARIES})
+target_link_libraries(${SAMPLE_CUBES} ${ZENGINE_LINK_LIBRARIES})
+target_link_libraries(${SAMPLE_LIGHT} ${ZENGINE_LINK_LIBRARIES})
+target_link_libraries(${SAMPLE_CUBES} ${ZENGINE})
+target_link_libraries(${SAMPLE_LIGHT} ${ZENGINE})
