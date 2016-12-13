@@ -3,11 +3,11 @@ cmake_minimum_required(VERSION 2.8)
 project(ZEngine)
 
 set(ZENGINE ZEngine)
-set(SAMPLE_CUBES Cubes)
-set(SAMPLE_LIGHT Light)
-set(SAMPLE_BASIC_LIGHTING BasicLighting)
-set(SAMPLE_MATERIALS Materials)
-set(SAMPLE_LIGHTING_MAP LightingMap)
+set(SAMPLE_CUBES Sample_Cubes)
+set(SAMPLE_LIGHT Sample_Light)
+set(SAMPLE_BASIC_LIGHTING Sample_BasicLighting)
+set(SAMPLE_MATERIALS Sample_Materials)
+set(SAMPLE_LIGHTING_MAP Sample_LightingMap)
 
 set(ZENGINE_SRC_UTIL 
 	src/zengine/utils/font.h 
