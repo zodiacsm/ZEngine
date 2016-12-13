@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(ZEngine)
-#project(Cubes)
 
 set(ZENGINE ZEngine)
 set(SAMPLE_CUBES Cubes)
 set(SAMPLE_LIGHT Light)
+set(SAMPLE_BASIC_LIGHTING BasicLighting)
+set(SAMPLE_MATERIALS Materials)
+set(SAMPLE_LIGHTING_MAP LightingMap)
 
 set(ZENGINE_SRC_UTIL 
 	src/zengine/utils/font.h 
@@ -31,6 +33,9 @@ set(ZENGINE_SRC_MAIN
 
 set(SAMPLE_CUBES_SRC src/samples/cubes/main.cpp)
 set(SAMPLE_LIGHT_SRC src/samples/light/main.cpp)
+set(SAMPLE_BASIC_LIGHTING_SRC src/samples/basic_lighting/main.cpp)
+set(SAMPLE_MATERIALS_SRC src/samples/materials/main.cpp)
+set(SAMPLE_LIGHTING_MAP_SRC src/samples/lighting_map/main.cpp)
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
@@ -70,6 +75,9 @@ source_group("renderer" FILES ${ZENGINE_SRC_RENDERER})
 add_library(${ZENGINE} ${ZENGINE_SRC_UTIL} ${ZENGINE_SRC_RENDERER} ${ZENGINE_SRC_MAIN})
 add_executable(${SAMPLE_CUBES} ${SAMPLE_CUBES_SRC})
 add_executable(${SAMPLE_LIGHT} ${SAMPLE_LIGHT_SRC})
+add_executable(${SAMPLE_BASIC_LIGHTING} ${SAMPLE_BASIC_LIGHTING_SRC})
+add_executable(${SAMPLE_MATERIALS} ${SAMPLE_MATERIALS_SRC})
+add_executable(${SAMPLE_LIGHTING_MAP} ${SAMPLE_LIGHTING_MAP_SRC})
 
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
@@ -80,7 +88,8 @@ elseif(APPLE)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/lib/mac /usr/local/lib)
 endif(WIN32)
 
-target_link_libraries(${SAMPLE_CUBES} ${ZENGINE_LINK_LIBRARIES})
-target_link_libraries(${SAMPLE_LIGHT} ${ZENGINE_LINK_LIBRARIES})
-target_link_libraries(${SAMPLE_CUBES} ${ZENGINE})
-target_link_libraries(${SAMPLE_LIGHT} ${ZENGINE})
+target_link_libraries(${SAMPLE_CUBES} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_LIGHT} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_BASIC_LIGHTING} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_MATERIALS} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_LIGHTING_MAP} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
