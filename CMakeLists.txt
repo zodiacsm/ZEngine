@@ -8,6 +8,7 @@ set(SAMPLE_LIGHT Sample_Light)
 set(SAMPLE_BASIC_LIGHTING Sample_BasicLighting)
 set(SAMPLE_MATERIALS Sample_Materials)
 set(SAMPLE_LIGHTING_MAP Sample_LightingMap)
+set(SAMPLE_SHADOW_MAPPING Sample_ShadowMapping)
 
 set(ZENGINE_SRC_UTIL 
 	src/zengine/utils/font.h 
@@ -36,6 +37,7 @@ set(SAMPLE_LIGHT_SRC src/samples/light/main.cpp)
 set(SAMPLE_BASIC_LIGHTING_SRC src/samples/basic_lighting/main.cpp)
 set(SAMPLE_MATERIALS_SRC src/samples/materials/main.cpp)
 set(SAMPLE_LIGHTING_MAP_SRC src/samples/lighting_map/main.cpp)
+set(SAMPLE_SHADOW_MAPPING_SRC src/samples/shadow_mapping/main.cpp)
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
@@ -78,6 +80,7 @@ add_executable(${SAMPLE_LIGHT} ${SAMPLE_LIGHT_SRC})
 add_executable(${SAMPLE_BASIC_LIGHTING} ${SAMPLE_BASIC_LIGHTING_SRC})
 add_executable(${SAMPLE_MATERIALS} ${SAMPLE_MATERIALS_SRC})
 add_executable(${SAMPLE_LIGHTING_MAP} ${SAMPLE_LIGHTING_MAP_SRC})
+add_executable(${SAMPLE_SHADOW_MAPPING} ${SAMPLE_SHADOW_MAPPING_SRC})
 
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
@@ -93,3 +96,4 @@ target_link_libraries(${SAMPLE_LIGHT} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_BASIC_LIGHTING} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_MATERIALS} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_LIGHTING_MAP} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_SHADOW_MAPPING} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
