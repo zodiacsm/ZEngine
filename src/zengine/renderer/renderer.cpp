@@ -204,7 +204,7 @@ void Renderer::render()
 
     renderText();
 
-    renderCubes();
+    //renderCubes();
 }
 
 void Renderer::renderText()
