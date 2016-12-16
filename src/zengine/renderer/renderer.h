@@ -42,6 +42,10 @@ private:
     void renderScene();
 
     void renderCubes();
+
+    void renderLogo();
+
+    void renderImage();
     
 private:
     GLuint mFontVAO, mFontVBO;

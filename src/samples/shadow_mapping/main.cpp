@@ -167,11 +167,6 @@ int main()
         glfwPollEvents();
         Do_Movement();
         
-        // Change light position over time
-        //lightPos.x = sin(glfwGetTime()) * 3.0f;
-        //lightPos.z = cos(glfwGetTime()) * 2.0f;
-        //lightPos.y = 5.0 + cos(glfwGetTime()) * 1.0f;
-        
         // 1. Render depth of scene to texture (from light's perspective)
         // - Get light projection/view matrix.
         glm::mat4 lightProjection, lightView;
