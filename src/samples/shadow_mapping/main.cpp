@@ -223,7 +223,7 @@ int main()
         
         std::string strFrame = "";
         float2str(1.0f / renderTime, strFrame);
-        Font::getInstance()->RenderText(strFrame, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+        Font::getInstance()->RenderText(strFrame, 25.0f, 25.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.2f));
         
         Game::getInstance()->render();
         
