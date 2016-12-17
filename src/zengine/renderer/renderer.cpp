@@ -87,6 +87,16 @@ glm::vec3 cubePositions[] = {
     glm::vec3(-1.3f, 1.0f, -1.5f)
 };
 
+GLfloat imageVertices[] = {
+	-0.8 + 0.1f, -0.8 + 0.1f, 0.0f, 1.0f, 1.0f,
+	-0.8 + 0.1f, -0.8 + -0.1f, 0.0f, 1.0f, 0.0f,
+	-0.8 + -0.1f, -0.8 + 0.1f, 0.0f, 0.0f, 1.0f,
+
+	-0.8 + 0.1f, -0.8 + -0.1f, 0.0f, 1.0f, 0.0f,
+	-0.8 + -0.1f, -0.8 + -0.1f, 0.0f, 0.0f, 0.0f,
+	-0.8 + -0.1f, -0.8 + 0.1f, 0.0f, 0.0f, 1.0f
+};
+
 Renderer::Renderer()
 :texture1(0),
 texture2(0)
@@ -191,6 +201,45 @@ void Renderer::init()
     glGenerateMipmap(GL_TEXTURE_2D);
     SOIL_free_image_data(image);
     glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	//init image buffer
+	glGenVertexArrays(1, &mImageVAO);
+	glGenBuffers(1, &mImageVBO);
+
+	glBindVertexArray(mImageVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mImageVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(imageVertices), imageVertices, GL_STATIC_DRAW);
+
+	// Position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	// TexCoord attribute
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	glBindVertexArray(0);
+
+	imageShader = Shader("resources/texture.vs", "resources/texture.frag");
+
+	glGenTextures(1, &mLogoTexture);
+	glBindTexture(GL_TEXTURE_2D, mLogoTexture); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+											// Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Load, create texture and generate mipmaps
+	int logoWidth, logoHeight;
+
+	unsigned char* logoImage = SOIL_load_image("resources/textures/logo3.png", &logoWidth, &logoHeight, 0, SOIL_LOAD_RGBA);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, logoWidth, logoHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, logoImage);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(logoImage);
+	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
 }
 
 void Renderer::submit(const FontInfo &fontInfo)
@@ -267,6 +316,8 @@ void Renderer::render()
 
     renderLogo();
 
+	renderImage();
+
     //renderCubes();
 }
 
@@ -314,7 +365,22 @@ void Renderer::renderScene()
 
 void Renderer::renderImage()
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	// Bind Textures using texture units
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, mLogoTexture);
+	glUniform1i(glGetUniformLocation(imageShader.Program, "ourTexture1"), 0);
+	glActiveTexture(GL_TEXTURE1);
+
+	// Activate shader
+	imageShader.Use();
+
+	// Draw container
+	glBindVertexArray(mImageVAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
 }
 
 void Renderer::renderCubes()

@@ -56,12 +56,18 @@ private:
     
     Shader shader;
 
+	Shader imageShader;
+
     GLuint mCubeVBO, mCubeVAO, mCubeEBO;
 
     GLuint texture1;
     GLuint texture2;
 
     GLuint mcubesVBO, mcubesVAO;
+
+	GLuint mImageVBO, mImageVAO;
+
+	GLuint mLogoTexture;
 };
 
 
