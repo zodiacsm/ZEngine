@@ -43,8 +43,6 @@ private:
 
     void renderCubes();
 
-    void renderLogo();
-
     void renderImage();
     
 private:

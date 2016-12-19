@@ -88,13 +88,13 @@ glm::vec3 cubePositions[] = {
 };
 
 GLfloat imageVertices[] = {
-	-0.8 + 0.1f, -0.8 + 0.1f, 0.0f, 1.0f, 1.0f,
-	-0.8 + 0.1f, -0.8 + -0.1f, 0.0f, 1.0f, 0.0f,
-	-0.8 + -0.1f, -0.8 + 0.1f, 0.0f, 0.0f, 1.0f,
+	-0.8 + 0.1f, -0.8 + 0.1f, -1.0f, 1.0f, 1.0f,
+	-0.8 + 0.1f, -0.8 + -0.1f, -1.0f, 1.0f, 0.0f,
+	-0.8 + -0.1f, -0.8 + 0.1f, -1.0f, 0.0f, 1.0f,
 
-	-0.8 + 0.1f, -0.8 + -0.1f, 0.0f, 1.0f, 0.0f,
-	-0.8 + -0.1f, -0.8 + -0.1f, 0.0f, 0.0f, 0.0f,
-	-0.8 + -0.1f, -0.8 + 0.1f, 0.0f, 0.0f, 1.0f
+	-0.8 + 0.1f, -0.8 + -0.1f, -1.0f, 1.0f, 0.0f,
+	-0.8 + -0.1f, -0.8 + -0.1f, -1.0f, 0.0f, 0.0f,
+	-0.8 + -0.1f, -0.8 + 0.1f, -1.0f, 0.0f, 1.0f
 };
 
 Renderer::Renderer()
@@ -239,7 +239,7 @@ void Renderer::init()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, logoWidth, logoHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, logoImage);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(logoImage);
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::submit(const FontInfo &fontInfo)
@@ -247,74 +247,11 @@ void Renderer::submit(const FontInfo &fontInfo)
     mFontInfos.push_back(fontInfo);
 }
 
-void Renderer::renderLogo()
-{
-    shader = ShaderManager::getInstance()->getShaderProgram((GLchar*)"resources/text.vs", (GLchar*)"resources/text.frag");
-    shader.Use();
-
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), 0.0f, static_cast<GLfloat>(600));
-    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-
-    GLuint logoTexture;
-    glGenTextures(1, &logoTexture);
-    int width, height;
-    unsigned char* image = SOIL_load_image("resources/textures/logo.png", &width, &height, 0, SOIL_LOAD_RGB);
-    // Assign texture to ID
-    glBindTexture(GL_TEXTURE_2D, logoTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    // Parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    SOIL_free_image_data(image);
-
-    glBindTexture(GL_TEXTURE_2D, logoTexture);
-
-    GLfloat vertices[6][4] = {
-        { 0, 0, 0, 0},
-        { 100, 0, 0, 1.0 },
-        { 0, 100, 1.0, 0 },
-        { 0, 100, 1.0, 0 },
-        { 100, 0, 0, 1.0 },
-        { 100, 100, 1.0, 1.0 },
-    };
-
-    GLuint logoVAO;
-    GLuint logoVBO;
-    glGenVertexArrays(1, &logoVAO);
-    glGenBuffers(1, &logoVBO);
-
-    glBindVertexArray(logoVAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, logoVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    // TexCoord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(1);
-
-    glBindVertexArray(0); // Unbind VAO
-
-    // Render quad
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
 void Renderer::render()
 {
     //renderScene();
 
     renderText();
-
-    renderLogo();
 
 	renderImage();
 
