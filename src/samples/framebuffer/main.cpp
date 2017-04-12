@@ -48,6 +48,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "LearnOpenGL", nullptr, nullptr); // Windowed
     glfwMakeContextCurrent(window);
@@ -65,8 +66,13 @@ int main()
     glewInit();
 
     // Define the viewport dimensions
+    int screenWidth, screenHeight;
+    
+    glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
+    
+    // Define the viewport dimensions
     glViewport(0, 0, screenWidth, screenHeight);
-
+    
     // Setup some OpenGL options
     glDepthFunc(GL_LESS);
 

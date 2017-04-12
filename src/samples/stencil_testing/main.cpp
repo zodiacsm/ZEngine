@@ -63,8 +63,13 @@ int main()
     glewInit();
 
     // Define the viewport dimensions
+    int screenWidth, screenHeight;
+    
+    glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
+    
+    // Define the viewport dimensions
     glViewport(0, 0, screenWidth, screenHeight);
-
+    
     // Setup some OpenGL options
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);

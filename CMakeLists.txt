@@ -16,6 +16,7 @@ set(SAMPLE_DEPTH_TESTING Sample_DepthTesting)
 set(SAMPLE_STENCIL_TESTING Sample_StencilTesting)
 set(SAMPLE_BLENDING Sample_Blending)
 set(SAMPLE_CUBEMAPS Sample_CubeMaps)
+set(SAMPLE_MSAA Sample_MSAA)
 
 set(ZENGINE_SRC_UTIL 
 	src/zengine/utils/font.h 
@@ -52,6 +53,7 @@ set(SAMPLE_DEPTHTESTING_SRC src/samples/depth_testing/main.cpp)
 set(SAMPLE_STENCIL_TESTING_SRC src/samples/stencil_testing/main.cpp)
 set(SAMPLE_BLENDING_SRC src/samples/blending/main.cpp)
 set(SAMPLE_CUBEMAPS_SRC src/samples/cubemaps/main.cpp)
+set(SAMPLE_MSAA_SRC src/samples/msaa/main.cpp)
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
@@ -102,6 +104,7 @@ add_executable(${SAMPLE_DEPTH_TESTING} ${SAMPLE_DEPTHTESTING_SRC})
 add_executable(${SAMPLE_STENCIL_TESTING} ${SAMPLE_STENCIL_TESTING_SRC})
 add_executable(${SAMPLE_BLENDING} ${SAMPLE_BLENDING_SRC})
 add_executable(${SAMPLE_CUBEMAPS} ${SAMPLE_CUBEMAPS_SRC})
+add_executable(${SAMPLE_MSAA} ${SAMPLE_MSAA_SRC})
 
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
@@ -125,3 +128,4 @@ target_link_libraries(${SAMPLE_DEPTH_TESTING} ${ZENGINE_LINK_LIBRARIES} ${ZENGIN
 target_link_libraries(${SAMPLE_STENCIL_TESTING} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_BLENDING} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_CUBEMAPS} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_MSAA} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
