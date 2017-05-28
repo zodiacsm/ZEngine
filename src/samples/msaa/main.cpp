@@ -59,13 +59,12 @@ int main()
     glewExperimental = GL_TRUE;
     glewInit();
 
+    int screenW, screenH;
+    
+    glfwGetFramebufferSize(window, &screenW, &screenH);
+    
     // Define the viewport dimensions
-//    int screenW, screenH;
-//    
-//    glfwGetFramebufferSize(window, &screenW, &screenH);
-//    
-//    // Define the viewport dimensions
-//    glViewport(0, 0, screenW, screenH);
+    glViewport(0, 0, screenW, screenH);
 
     // Setup OpenGL options
     glEnable(GL_MULTISAMPLE); // Enabled by default on some drivers, but not all so always enable to make sure
