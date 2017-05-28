@@ -17,6 +17,8 @@ set(SAMPLE_STENCIL_TESTING Sample_StencilTesting)
 set(SAMPLE_BLENDING Sample_Blending)
 set(SAMPLE_CUBEMAPS Sample_CubeMaps)
 set(SAMPLE_MSAA Sample_MSAA)
+set(SAMPLE_HDR Sample_HDR)
+set(SAMPLE_ASSIMP Sample_ASSIMP)
 
 set(ZENGINE_SRC_UTIL 
 	src/zengine/utils/font.h 
@@ -36,6 +38,8 @@ set(ZENGINE_SRC_MAIN
 	src/zengine/game.h
 	src/zengine/main.cpp
 	src/zengine/shader.h
+	src/zengine/model.h
+	src/zengine/mesh.h
 	src/zengine/stb_image.h
 	src/zengine/shadermanager.h
 	src/zengine/shadermanager.cpp)
@@ -54,6 +58,8 @@ set(SAMPLE_STENCIL_TESTING_SRC src/samples/stencil_testing/main.cpp)
 set(SAMPLE_BLENDING_SRC src/samples/blending/main.cpp)
 set(SAMPLE_CUBEMAPS_SRC src/samples/cubemaps/main.cpp)
 set(SAMPLE_MSAA_SRC src/samples/msaa/main.cpp)
+set(SAMPLE_HDR_SRC src/samples/hdr/main.cpp)
+set(SAMPLE_ASSIMP_SRC src/samples/assimp/main.cpp)
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
@@ -62,6 +68,7 @@ if(WIN32)
 		OpenGL32.Lib
 		SOIL.lib
 		freetyped.lib
+		assimp.lib
 	)
 elseif(APPLE)
 	FIND_LIBRARY(OPENGL_LIB OpenGL)
@@ -84,6 +91,7 @@ endif()
 include_directories(include)
 include_directories(include/freetype)
 include_directories(src/zengine)
+include_directories(src/assimp)
 
 source_group("utils" FILES ${ZENGINE_SRC_UTIL})
 source_group("renderer" FILES ${ZENGINE_SRC_RENDERER})
@@ -105,6 +113,8 @@ add_executable(${SAMPLE_STENCIL_TESTING} ${SAMPLE_STENCIL_TESTING_SRC})
 add_executable(${SAMPLE_BLENDING} ${SAMPLE_BLENDING_SRC})
 add_executable(${SAMPLE_CUBEMAPS} ${SAMPLE_CUBEMAPS_SRC})
 add_executable(${SAMPLE_MSAA} ${SAMPLE_MSAA_SRC})
+add_executable(${SAMPLE_HDR} ${SAMPLE_HDR_SRC})
+add_executable(${SAMPLE_ASSIMP} ${SAMPLE_ASSIMP_SRC})
 
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
@@ -129,3 +139,5 @@ target_link_libraries(${SAMPLE_STENCIL_TESTING} ${ZENGINE_LINK_LIBRARIES} ${ZENG
 target_link_libraries(${SAMPLE_BLENDING} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_CUBEMAPS} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_MSAA} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_HDR} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_ASSIMP} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
