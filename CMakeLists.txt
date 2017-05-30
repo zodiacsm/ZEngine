@@ -19,6 +19,7 @@ set(SAMPLE_CUBEMAPS Sample_CubeMaps)
 set(SAMPLE_MSAA Sample_MSAA)
 set(SAMPLE_HDR Sample_HDR)
 set(SAMPLE_ASSIMP Sample_ASSIMP)
+set(SAMPLE_NORMALMAP Sample_NormalMap)
 
 set(ZENGINE_SRC_UTIL 
 	src/zengine/utils/font.h 
@@ -60,6 +61,7 @@ set(SAMPLE_CUBEMAPS_SRC src/samples/cubemaps/main.cpp)
 set(SAMPLE_MSAA_SRC src/samples/msaa/main.cpp)
 set(SAMPLE_HDR_SRC src/samples/hdr/main.cpp)
 set(SAMPLE_ASSIMP_SRC src/samples/assimp/main.cpp)
+set(SAMPLE_NORMALMAP_SRC src/samples/normal_map/main.cpp)
 
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
@@ -115,6 +117,7 @@ add_executable(${SAMPLE_CUBEMAPS} ${SAMPLE_CUBEMAPS_SRC})
 add_executable(${SAMPLE_MSAA} ${SAMPLE_MSAA_SRC})
 add_executable(${SAMPLE_HDR} ${SAMPLE_HDR_SRC})
 add_executable(${SAMPLE_ASSIMP} ${SAMPLE_ASSIMP_SRC})
+add_executable(${SAMPLE_NORMALMAP} ${SAMPLE_NORMALMAP_SRC})
 
 if(WIN32)
 	add_custom_command(TARGET ${ZENGINE} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E 		copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources)
@@ -141,3 +144,4 @@ target_link_libraries(${SAMPLE_CUBEMAPS} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_MSAA} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_HDR} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
 target_link_libraries(${SAMPLE_ASSIMP} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
+target_link_libraries(${SAMPLE_NORMALMAP} ${ZENGINE_LINK_LIBRARIES} ${ZENGINE})
