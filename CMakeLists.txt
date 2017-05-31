@@ -80,6 +80,7 @@ elseif(APPLE)
 		libglfw3.3.1.dylib
 		libGLEW.1.13.0.dylib
 		libsoillib.dylib
+		libassimp.3.3.1.dylib
 		${OPENGL_LIB}
 	)
 endif()
