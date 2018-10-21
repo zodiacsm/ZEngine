@@ -63,6 +63,22 @@ set(SAMPLE_HDR_SRC src/samples/hdr/main.cpp)
 set(SAMPLE_ASSIMP_SRC src/samples/assimp/main.cpp)
 set(SAMPLE_NORMALMAP_SRC src/samples/normal_map/main.cpp)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
+
+message(STATUS "${GLFW3_LIBRARY}")
+# find the required packages
+#find_package(GLM REQUIRED)
+#message(STATUS "GLM included at ${GLM_INCLUDE_DIR}")
+find_package(GLFW3 REQUIRED)
+message(STATUS "Found GLFW3 in ${GLFW3_INCLUDE_DIR}")
+find_package(ASSIMP REQUIRED)
+message(STATUS "Found ASSIMP in ${ASSIMP_INCLUDE_DIR}")
+#find_package(SOIL REQUIRED)
+#message(STATUS "Found SOIL in ${SOIL_INCLUDE_DIR}")
+find_package(GLEW REQUIRED)
+message(STATUS "Found GLEW in ${GLEW_INCLUDE_DIR}")
+message(STATUS "${GLFW3_LIBRARY}")
+
 if(WIN32)
 	set(ZENGINE_LINK_LIBRARIES
 		glew32sd.lib
@@ -77,10 +93,8 @@ elseif(APPLE)
 
 	set(ZENGINE_LINK_LIBRARIES
 		libfreetype.6.dylib
-		libglfw3.3.1.dylib
 		libGLEW.1.13.0.dylib
 		libsoillib.dylib
-		libassimp.3.3.1.dylib
 		${OPENGL_LIB}
 	)
 endif()
@@ -90,6 +104,31 @@ if(WIN32)
 elseif(APPLE)
 	link_directories(${PROJECT_SOURCE_DIR}/lib/mac)
 endif()
+
+if(WIN32)
+  set(LIBS glfw3 opengl32 assimp)
+elseif(UNIX AND NOT APPLE)
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
+  find_package(OpenGL REQUIRED)
+  add_definitions(${OPENGL_DEFINITIONS})
+  find_package(X11 REQUIRED)
+  # note that the order is important for setting the libs
+  # use pkg-config --libs $(pkg-config --print-requires --print-requires-private glfw3) in a terminal to confirm
+  set(LIBS ${GLFW3_LIBRARY} X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread ${ASSIMP_LIBRARY})
+  set (CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -ldl")
+elseif(APPLE)
+  INCLUDE_DIRECTORIES(/System/Library/Frameworks)
+  FIND_LIBRARY(COCOA_LIBRARY Cocoa)
+  FIND_LIBRARY(OpenGL_LIBRARY OpenGL)
+  FIND_LIBRARY(IOKit_LIBRARY IOKit)
+  FIND_LIBRARY(CoreVideo_LIBRARY CoreVideo)
+  MARK_AS_ADVANCED(COCOA_LIBRARY OpenGL_LIBRARY)
+  SET(APPLE_LIBS ${COCOA_LIBRARY} ${IOKit_LIBRARY} ${OpenGL_LIBRARY} ${CoreVideo_LIBRARY})
+  SET(APPLE_LIBS ${APPLE_LIBS} ${GLFW3_LIBRARY} ${ASSIMP_LIBRARY})
+  set(ZENGINE_LINK_LIBRARIES ${LIBS} ${APPLE_LIBS} ${ZENGINE_LINK_LIBRARIES})
+else()
+  set(LIBS )
+endif(WIN32)
 
 include_directories(include)
 include_directories(include/freetype)
